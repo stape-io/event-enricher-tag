@@ -5,7 +5,7 @@ The **Event Enricher Tag** is a custom tag template for the Google Tag Manager (
 This tag is useful when you want to:
 - Enrich Event Data before it reaches other tags.
 - Change the event name to be used in triggers or analytics.
-- Use transformed variable data in other variables and/or triggers without triggering additional unwanted requests.
+- Use transformed variable data in other variables and/or triggers without triggering additional unwanted requests (such as requests triggered by Transformations that sometimes evaluate variables that produce HTTP requests multiple times).
 
 ## Getting Started
 

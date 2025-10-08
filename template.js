@@ -1,14 +1,16 @@
+/// <reference path="./server-gtm-sandboxed-apis.d.ts" />
+
 const getAllEventData = require('getAllEventData');
 const makeString = require('makeString');
 const runContainer = require('runContainer');
 
-/**********************************************************************************************/
+/*==============================================================================
+==============================================================================*/
 
 let newEventData = {
   event_name: makeString(data.newEventName)
 };
 
-// Override with Event Data parameters from template fields.
 const additionalEventDataParameters = data.additionalEventDataParameters;
 if (additionalEventDataParameters) {
   additionalEventDataParameters.forEach((d) => {
@@ -30,7 +32,9 @@ runContainer(newEventData, () => {
   data.gtmOnSuccess();
 });
 
-/**********************************************************************************************/
+/*==============================================================================
+  Helpers
+==============================================================================*/
 
 function mergeObjects(target, source) {
   for (const key in source) {

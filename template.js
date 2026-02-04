@@ -1,5 +1,3 @@
-/// <reference path="./server-gtm-sandboxed-apis.d.ts" />
-
 const getAllEventData = require('getAllEventData');
 const makeString = require('makeString');
 const runContainer = require('runContainer');
@@ -15,7 +13,19 @@ const additionalEventDataParameters = data.additionalEventDataParameters;
 if (additionalEventDataParameters) {
   additionalEventDataParameters.forEach((d) => {
     // Skip 'event_name' since it has already been set from another input field.
-    if (d.name !== 'event_name') newEventData[d.name] = d.value;
+    if (d.name === 'event_name') return;
+
+    if (data.convertDotNotationFlatParameterIntoJSON) {
+      const names = d.name.split('.');
+      names.reduce((acc, name, index) => {
+        const isLastKey = index === names.length - 1;
+        if (isLastKey) acc[name] = d.value;
+        else acc[name] = acc[name] || {};
+        return acc[name];
+      }, newEventData);
+    } else {
+      newEventData[d.name] = d.value;
+    }
   });
 }
 

@@ -1,6 +1,8 @@
 homepage: 'https://stape.io/'
 documentation: 'https://github.com/stape-io/event-enricher-tag'
 versions:
+  - sha: a9e84a0b199c0c2f1615c59647499ea4525acc5a
+    changeNotes: Added support for creating JSON structures from parameter names written in dot notation.
   - sha: a9a80c9aa20d4adfb710862d3c22ee07cc48eef5
     changeNotes: Updated the template logo and performed minor UI improvements.
   - sha: 55aa47de12e3b5c16b6db3da75935e0a4a015de2

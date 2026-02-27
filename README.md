@@ -22,16 +22,44 @@ This tag is useful when you want to:
 - **New Event Name** – The new name assigned to the event.
 
 ⚠️ **Important**: To prevent an infinite loop in your container, use one of the following techniques:
-- If you use the **same Event Name** as the triggering event: Add a new parameter (e.g., *is_enriched = true*) to the Event Data. Use this parameter to create a new trigger, add it as the firing trigger for this tag and as an exception trigger to the other tags.
+- If you use the **_same Event Name_** as the triggering event: Add a new parameter (e.g., *`is_enriched` = true*) to the Event Data. Use this parameter to create a new trigger, add it as the firing trigger for this tag and as an exception trigger to the other tags.
   - **Example**:
-    - If the triggering event is *conversion*, add the *is_enriched = true* parameter to the Event Data.
-    - Create an Event Data variable for *is_enriched*.
-    - Create a trigger and add the variable to it (e.g., *is_enriched equals undefined*).
+    - If the triggering event is *conversion*, add the *`is_enriched` = true* parameter to the Event Data.
+    - Create an Event Data variable for *`is_enriched`*.
+    - Create a trigger and add the variable to it (e.g., *`is_enriched` equals `undefined`*).
     - Use this trigger as the firing trigger of this tag and as an exception trigger to the rest of the tags in the container.
-- If you use a **different Event Name** than the triggering event, simply modify the event name and update any dependent tags to trigger off the new name.
+- If you use a **_different Event Name_** than the triggering event, simply modify the event name and update any dependent tags to trigger off the new name.
   - **Example**:
     - If the triggering event is *conversion*, use *conversion_enriched* or any name other than *conversion*.
     - Update the event name in the triggers of all related tags to match the new one.
+
+### Additional configuration for GA4 Advanced Consent Mode
+<details>
+<summary>⬇️ Click to learn more ⬇️</summary>
+<br/>
+
+When using **GA4 Advanced Consent** mode, additional trigger configuration is required.
+
+GA4 includes a special parameter called `x-ga-gcu` in events that are redispatched after the user's consent status changes from **denied** to **granted**. When server-side GTM receives these redispatched events, it only fires **Google-related tags** (GA4, Google Ads, Floodlight, and Conversion Linker) — all other tags, including the Event Enricher, are suppressed. This means the enrichment logic won't run, and downstream tags that depend on the enriched event won't receive the modified data.
+
+To ensure correct behavior, configure triggers so that downstream tags can still fire for these consent-update events. See [Simo Ahava's article on automatic hits to sGTM after consent is granted](https://www.simoahava.com/gtmtips/automatic-page-view-hits-to-sgtm-after-consent-granted/) for more background.
+
+**If using the _same Event Name_ option:**
+- Create an Event Data variable for `x-ga-gcu`.
+- Add it as a condition to the trigger that is used both as a firing trigger for this tag and as an exception trigger for other tags.
+- The condition should be: *`x-ga-gcu` equals `undefined`*.
+- Adapt the logic to your specific needs.
+
+**If using the _different Event Name_ option:**
+- Create a new trigger with the same conditions as the existing one, **except**:
+  - The event name must be the **original** event name (not the enriched one), since the Event Enricher tag won't fire for these events.
+  - Add an extra condition: *`x-ga-gcu` does not equal `undefined`*.
+- Add this new trigger as a firing trigger to the Google-related tags.
+- Adapt the logic to your specific needs.
+
+This ensures that events collected before consent are correctly processed when redispatched, preserving attribution in GA4 and proper functioning of other platforms.
+
+</details>
 
 ## Optional Settings
 

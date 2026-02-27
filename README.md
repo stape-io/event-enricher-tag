@@ -46,12 +46,12 @@ To ensure correct behavior, configure triggers so that downstream tags can still
 
 **If using the _same Event Name_ option:**
 - Create an Event Data variable for `x-ga-gcu`.
-- Add it as a condition to the trigger that is used both as a firing trigger for this tag and as an exception trigger for other tags.
+- Add it as a condition to the trigger you have just created above, which is used both as a firing trigger for this tag and as an exception trigger for other tags.
 - The condition should be: *`x-ga-gcu` equals `undefined`*.
 - Adapt the logic to your specific needs.
 
 **If using the _different Event Name_ option:**
-- Create a new trigger with the same conditions as the existing one, **except**:
+- Create a new trigger with the same conditions as the one you have just created above, **except**:
   - The event name must be the **original** event name (not the enriched one), since the Event Enricher tag won't fire for these events.
   - Add an extra condition: *`x-ga-gcu` does not equal `undefined`*.
 - Add this new trigger as a firing trigger to the Google-related tags.

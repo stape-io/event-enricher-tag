@@ -95,6 +95,19 @@ ___TEMPLATE_PARAMETERS___
         "newRowButtonText": "Add Parameter"
       }
     ]
+  },
+  {
+    "type": "GROUP",
+    "name": "noteGAAdvancedConsentModeGroup",
+    "subParams": [
+      {
+        "type": "LABEL",
+        "name": "noteGAAdvancedConsentModeLabel",
+        "displayName": "📖 \u003ca href\u003d\u0027https://github.com/stape-io/event-enricher-tag?tab\u003dreadme-ov-file#additional-configuration-for-ga4-advanced-consent-mode\u0027\u003eLearn more\u003c/a\u003e about the additional configuration when using GA4 Advanced Consent mode.\n\u003c/br\u003e\u003c/br\u003e"
+      }
+    ],
+    "groupStyle": "ZIPPY_OPEN",
+    "displayName": "Notes"
   }
 ]
 

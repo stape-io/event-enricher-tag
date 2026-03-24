@@ -44,18 +44,22 @@ GA4 includes a special parameter called `x-ga-gcu` in events that are redispatch
 
 To ensure correct behavior, configure triggers so that downstream tags can still fire for these consent-update events. See [Simo Ahava's article on automatic hits to sGTM after consent is granted](https://www.simoahava.com/gtmtips/automatic-page-view-hits-to-sgtm-after-consent-granted/) for more background.
 
-**If using the _same Event Name_ option:**
-- Create an Event Data variable for `x-ga-gcu`.
-- Add it as a condition to the trigger you have just created above, which is used both as a firing trigger for this tag and as an exception trigger for other tags.
-- The condition should be: *`x-ga-gcu` equals `undefined`*.
-- Adapt the logic to your specific needs.
+1. Create an Event Data variable for `x-ga-gcu`.
 
-**If using the _different Event Name_ option:**
-- Create a new trigger with the same conditions as the one you have just created above, **except**:
-  - The event name must be the **original** event name (not the enriched one), since the Event Enricher tag won't fire for these events.
-  - Add an extra condition: *`x-ga-gcu` does not equal `undefined`*.
-- Add this new trigger as a firing trigger to the Google-related tags.
-- Adapt the logic to your specific needs.
+  - **If using the _same Event Name_ option:**
+
+    2. Add it as a condition to the trigger created [as described above](#required-field), which is used both as a firing trigger for this tag and as an exception trigger for other tags.
+    3. The condition should be: *`x-ga-gcu` equals `undefined`*.
+
+
+  - **If using the _different Event Name_ option:**
+
+    2. Create a new trigger with the same conditions as the one you have just [created above](#required-field), **except**:
+         - The event name must be the **original** event name (not the enriched one), since the Event Enricher tag won't fire for these events.
+         - Add an extra condition: *`x-ga-gcu` does not equal `undefined`*.
+    3. Add this new trigger as a firing trigger **only** to the Google-related tags (GA4, Google Ads, Floodlight, Conversion Linker).
+
+4. Adapt the logic to your specific needs.
 
 This ensures that events collected before consent are correctly processed when redispatched, preserving attribution in GA4 and proper functioning of other platforms.
 

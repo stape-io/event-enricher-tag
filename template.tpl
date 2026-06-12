@@ -13,7 +13,7 @@ ___INFO___
   "id": "cvt_temp_public_id",
   "version": 1,
   "securityGroups": [],
-  "displayName": "Event Enricher Tag by Stape",
+  "displayName": "Event Generator Tag by Stape",
   "categories": [
     "UTILITY"
   ],
@@ -42,7 +42,55 @@ ___TEMPLATE_PARAMETERS___
         "type": "NON_EMPTY"
       }
     ],
-    "help": "Enter a name for the new event.\n\u003cbr/\u003e\u003cbr/\u003e\n⚠️ \n\u003cbr/\u003e\nTo prevent an infinite loop in your container, use one of the following techniques:\n\u003cul\u003e\n\u003cli\u003e\nIf you use the \u003cb\u003esame Event Name\u003c/b\u003e as the triggering event: Add a new parameter (e.g., \u003ci\u003eis_enriched \u003d true\u003c/i\u003e) to the Event Data. Use this parameter to create a new trigger, add it as the firing trigger for this tag and as an exception trigger to the other tags.\n\u003cbr/\u003e\nExample:\n\u003cul\u003e\n\u003cli\u003eIf the triggering event is \u003ci\u003econversion\u003c/i\u003e, add the \u003ci\u003eis_enriched \u003d true\u003c/i\u003e parameter to the Event Data.\u003c/li\u003e\n\u003cli\u003eCreate an Event Data variable for \u003ci\u003eis_enriched\u003c/i\u003e.\u003c/li\u003e\n\u003cli\u003eCreate a trigger and add the variable to it (e.g.  \u003ci\u003eis_enriched equals undefined\u003c/i\u003e).\u003c/li\u003e\n\u003cli\u003eUse this trigger as the firing trigger of this tag and as an exception trigger to the rest of the tags in the container.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\nIf you use a \u003cb\u003edifferent Event Name\u003c/b\u003e than the triggering event, simply modify the event name and update any dependent tags to trigger off the new name.\n\u003cbr/\u003e\nExample:\n\u003cul\u003e\n\u003cli\u003eIf the triggering event is \u003ci\u003econversion\u003c/i\u003e, use \u003ci\u003econversion_enriched\u003c/i\u003e or any name other than \u003ci\u003econversion\u003c/i\u003e.\u003c/li\u003e\n\u003cli\u003eUpdate the event name in the triggers of all related tags to match the new one.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n⚠️ \n\u003cbr/\u003e"
+    "help": "Enter a name for the new event.\n\u003cbr/\u003e\u003cbr/\u003e\n⚠️ \n\u003cbr/\u003e\nTo prevent an infinite loop in your container, use one of the following techniques:\n\u003cul\u003e\n\u003cli\u003e\nIf you use the \u003cb\u003esame Event Name\u003c/b\u003e as the event name used in the triggers of this tag: Add a new parameter (e.g., \u003ci\u003eis_enriched \u003d true\u003c/i\u003e) to the Event Data. Use this parameter to create a new trigger, add it as the firing trigger for this tag and as an exception trigger to the other tags.\n\u003cbr/\u003e\nExample:\n\u003cul\u003e\n\u003cli\u003eIf the triggering event is \u003ci\u003econversion\u003c/i\u003e, add the \u003ci\u003eis_enriched \u003d true\u003c/i\u003e parameter to the Event Data.\u003c/li\u003e\n\u003cli\u003eCreate an Event Data variable for \u003ci\u003eis_enriched\u003c/i\u003e.\u003c/li\u003e\n\u003cli\u003eCreate a trigger and add the variable to it (e.g.  \u003ci\u003eis_enriched equals undefined\u003c/i\u003e).\u003c/li\u003e\n\u003cli\u003eUse this trigger as the firing trigger of this tag and as an exception trigger to the rest of the tags in the container.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\nIf you use a \u003cb\u003edifferent Event Name\u003c/b\u003e than the event name used in the triggers of this tag, simply modify the event name and update any dependent tags to trigger off the new name.\n\u003cbr/\u003e\nExample:\n\u003cul\u003e\n\u003cli\u003eIf the triggering event is \u003ci\u003econversion\u003c/i\u003e, use \u003ci\u003econversion_enriched\u003c/i\u003e or any name other than \u003ci\u003econversion\u003c/i\u003e.\u003c/li\u003e\n\u003cli\u003eUpdate the event name in the triggers of all related tags to match the new one.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e \n\u003cbr/\u003e"
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "emitMultipleEvents",
+    "checkboxText": "Emit Multiple Events",
+    "simpleValueType": true,
+    "help": "Each event name listed triggers a new execution of the sGTM container with the specified event name.\n\u003cbr/\u003e\nCheck \u003ca href\u003d\"https://community.stape.io/t/tag-repeater-request-repeater/3675/4\"\u003ethis\u003c/a\u003e for a use case example.\n\u003cbr/\u003e\u003cbr/\u003e\n⚠️ \n\u003cbr/\u003e\nTo prevent an infinite loop in your container, use one of the following techniques:\n\u003cul\u003e\n\u003cli\u003e\nIf you use the \u003cb\u003esame Event Name\u003c/b\u003e as the event name used in the triggers of this tag: Add a new parameter (e.g., \u003ci\u003eis_enriched \u003d true\u003c/i\u003e) to the Event Data. Use this parameter to create a new trigger, add it as the firing trigger for this tag and as an exception trigger to the other tags.\n\u003cbr/\u003e\nExample:\n\u003cul\u003e\n\u003cli\u003eIf the triggering event is \u003ci\u003econversion\u003c/i\u003e, add the \u003ci\u003eis_enriched \u003d true\u003c/i\u003e parameter to the Event Data.\u003c/li\u003e\n\u003cli\u003eCreate an Event Data variable for \u003ci\u003eis_enriched\u003c/i\u003e.\u003c/li\u003e\n\u003cli\u003eCreate a trigger and add the variable to it (e.g.  \u003ci\u003eis_enriched equals undefined\u003c/i\u003e).\u003c/li\u003e\n\u003cli\u003eUse this trigger as the firing trigger of this tag and as an exception trigger to the rest of the tags in the container.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\nIf you use a \u003cb\u003edifferent Event Name\u003c/b\u003e than the event name used in the triggers of this tag, simply modify the event name and update any dependent tags to trigger off the new name.\n\u003cbr/\u003e\nExample:\n\u003cul\u003e\n\u003cli\u003eIf the triggering event is \u003ci\u003econversion\u003c/i\u003e, use \u003ci\u003econversion_enriched\u003c/i\u003e or any name other than \u003ci\u003econversion\u003c/i\u003e.\u003c/li\u003e\n\u003cli\u003eUpdate the event name in the triggers of all related tags to match the new one.\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003c/ul\u003e \n\u003cbr/\u003e",
+    "subParams": [
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "additionalEventNames",
+        "displayName": "Additional Event Names",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Event Name",
+            "name": "eventName",
+            "type": "TEXT",
+            "isUnique": true,
+            "valueValidators": [
+              {
+                "type": "NON_EMPTY"
+              }
+            ],
+            "valueHint": "conversion_enriched_2"
+          }
+        ],
+        "enablingConditions": [
+          {
+            "paramName": "emitMultipleEvents",
+            "paramValue": true,
+            "type": "EQUALS"
+          }
+        ],
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          },
+          {
+            "type": "TABLE_ROW_COUNT",
+            "args": [
+              1
+            ]
+          }
+        ],
+        "newRowButtonText": "Add Event Name"
+      }
+    ]
   },
   {
     "type": "CHECKBOX",
@@ -81,6 +129,13 @@ ___TEMPLATE_PARAMETERS___
             "valueValidators": [
               {
                 "type": "NON_EMPTY"
+              },
+              {
+                "type": "REGEX",
+                "args": [
+                  "^(?!event_name$).*$"
+                ],
+                "errorMessage": "The parameter name must not be \"event_name\"."
               }
             ],
             "isUnique": true
@@ -115,20 +170,23 @@ ___TEMPLATE_PARAMETERS___
 ___SANDBOXED_JS_FOR_SERVER___
 
 const getAllEventData = require('getAllEventData');
+const JSON = require('JSON');
 const makeString = require('makeString');
 const runContainer = require('runContainer');
 
 /*==============================================================================
 ==============================================================================*/
 
-let newEventData = {
-  event_name: makeString(data.newEventName)
-};
+const eventNames = [makeString(data.newEventName)];
+if (data.emitMultipleEvents && data.additionalEventNames) {
+  data.additionalEventNames.forEach((d) => eventNames.push(makeString(d.eventName)));
+}
 
+let newEventData = {};
 const additionalEventDataParameters = data.additionalEventDataParameters;
 if (additionalEventDataParameters) {
   additionalEventDataParameters.forEach((d) => {
-    // Skip 'event_name' since it has already been set from another input field.
+    // Skip 'event_name' since it will be set from another input field.
     if (d.name === 'event_name') return;
 
     if (data.convertDotNotationFlatParameterIntoJSON) {
@@ -150,12 +208,20 @@ if (data.copyCurrentEventData) {
   newEventData = mergeObjects(currentEventData, newEventData);
 }
 
-runContainer(newEventData, () => {
-  // Calling data.gtmOnSuccess() inside the onComplete callback ensures proper execution.
-  // Although sGTM's internal process waits for this function and related tags to finish
-  // before completing execution, best practice dictates calling it here to maintain clarity,
-  // and to avoid any undesired problems related to asynchronicity.
-  data.gtmOnSuccess();
+let runContainerOnCompleteCounter = 0;
+eventNames.forEach((eventName) => {
+  const eventDataCopy = JSON.parse(JSON.stringify(newEventData));
+  eventDataCopy.event_name = eventName;
+  // runContainer is called in parallel for each event name.
+  runContainer(eventDataCopy, () => {
+    // Calling data.gtmOnSuccess() inside the onComplete callback ensures proper execution.
+    // Although sGTM's internal process waits for this function and related tags to finish
+    // before completing execution, best practice dictates calling it here to maintain clarity,
+    // and to avoid any undesired problems related to asynchronicity.
+    if (++runContainerOnCompleteCounter === eventNames.length) {
+      data.gtmOnSuccess();
+    }
+  });
 });
 
 /*==============================================================================
@@ -221,6 +287,7 @@ scenarios:
     runCode(mockData);
 
     assertApi('gtmOnSuccess').wasCalled();
+    assertApi('runContainer').wasCalled();
 - name: Copied Event Data is passed to runContainer
   code: |-
     mockData.copyCurrentEventData = true;
@@ -238,6 +305,8 @@ scenarios:
     runCode(mockData);
 
     assertApi('gtmOnSuccess').wasCalled();
+    assertApi('runContainer').wasCalled();
+    assertApi('runContainer').wasCalled();
 - name: Additional Event Data Parameters are passed to runContainer
   code: |-
     mockData.additionalEventDataParameters = additionalEventDataParameters;
@@ -257,6 +326,7 @@ scenarios:
     runCode(mockData);
 
     assertApi('gtmOnSuccess').wasCalled();
+    assertApi('runContainer').wasCalled();
 - name: Additional Event Data Parameters are passed to runContainer (converting flat
     parameters into JSON)
   code: "mockData.additionalEventDataParameters = additionalEventDataParameters;\n\
@@ -269,7 +339,8 @@ scenarios:
     \      address: {\n        city: expectedValue,\n        country: expectedValue\n\
     \      }\n    }\n  }\n);\n\nmock('runContainer', (eventData, onComplete, onStart)\
     \ => {\n  assertThat(eventData).isEqualTo(expectedEventData);\n  assertThat(onComplete).isFunction();\n\
-    \  onComplete();\n});\n\nrunCode(mockData);\n\nassertApi('gtmOnSuccess').wasCalled();"
+    \  onComplete();\n});\n\nrunCode(mockData);\n\nassertApi('gtmOnSuccess').wasCalled();\n\
+    assertApi('runContainer').wasCalled();"
 - name: Additional Event Data Parameters overwrite Copied Event Data and are passed
     to runContainer
   code: |-
@@ -292,6 +363,79 @@ scenarios:
     runCode(mockData);
 
     assertApi('gtmOnSuccess').wasCalled();
+    assertApi('runContainer').wasCalled();
+- name: Multiple event names are passed to runContainer when emitMultipleEvents is
+    enabled
+  code: |-
+    mockData.emitMultipleEvents = true;
+    mockData.additionalEventNames = [{ eventName: 'additional_event' }];
+
+    let runContainerCallCount = 0;
+    const receivedEventData = [];
+
+    mock('runContainer', (eventData, onComplete) => {
+      runContainerCallCount++;
+      receivedEventData.push(eventData);
+      assertThat(onComplete).isFunction();
+      onComplete();
+    });
+
+    runCode(mockData);
+
+    assertThat(runContainerCallCount).isEqualTo(2);
+    assertThat(receivedEventData[0]).isEqualTo({ event_name: expectedValue });
+    assertThat(receivedEventData[1]).isEqualTo({ event_name: 'additional_event' });
+    assertApi('gtmOnSuccess').wasCalled();
+    assertApi('gtmOnFailure').wasNotCalled();
+- name: Additional Event Data Parameters are passed to all events when emitMultipleEvents
+    is enabled
+  code: |-
+    mockData.emitMultipleEvents = true;
+    mockData.additionalEventNames = [{ eventName: 'additional_event' }];
+    mockData.additionalEventDataParameters = additionalEventDataParameters;
+
+    let runContainerCallCount = 0;
+
+    // Expected that 'event_name' from additionalEventDataParameters doesn't overwrite the event_name from input field.
+    mock('runContainer', (eventData, onComplete) => {
+      runContainerCallCount++;
+      const expectedEventName = runContainerCallCount === 1 ? expectedValue : 'additional_event';
+      const expectedEventData = assign(
+        { event_name: expectedEventName },
+        expectedAdditionalEventDataParameters
+      );
+      assertThat(eventData).isEqualTo(expectedEventData);
+      assertThat(onComplete).isFunction();
+      onComplete();
+    });
+
+    runCode(mockData);
+
+    assertThat(runContainerCallCount).isEqualTo(2);
+    assertApi('gtmOnSuccess').wasCalled();
+    assertApi('gtmOnFailure').wasNotCalled();
+- name: Copied Event Data is passed to all events when emitMultipleEvents is enabled
+  code: |-
+    mockData.emitMultipleEvents = true;
+    mockData.copyCurrentEventData = true;
+    mockData.additionalEventNames = [{ eventName: 'additional_event' }];
+
+    let runContainerCallCount = 0;
+
+    mock('runContainer', (eventData, onComplete) => {
+      runContainerCallCount++;
+      const expectedEventName = runContainerCallCount === 1 ? expectedValue : 'additional_event';
+      const expectedEventData = assign({}, expectedGetAllEventData, { event_name: expectedEventName });
+      assertThat(eventData).isEqualTo(expectedEventData);
+      assertThat(onComplete).isFunction();
+      onComplete();
+    });
+
+    runCode(mockData);
+
+    assertThat(runContainerCallCount).isEqualTo(2);
+    assertApi('gtmOnSuccess').wasCalled();
+    assertApi('gtmOnFailure').wasNotCalled();
 setup: |-
   const Object = require('Object');
 
@@ -360,6 +504,10 @@ setup: |-
 
 
 ___NOTES___
+
+2026-06-12 - Change Notes:
+  - Rename tag from "Event Enricher Tag" to "Event Generator Tag
+  - Emit multiple sGTM container executions in parallel, one per event name in the Additional Event Names table
 
 Created on 3/21/2025, 10:18:42 AM
 

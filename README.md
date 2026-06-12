@@ -80,3 +80,6 @@ This ensures that events collected before consent are correctly processed when r
 ## Open Source
 
 The **Event Generator Tag for GTM Server Side** is developed and maintained by the [Stape Team](https://stape.io/) under the Apache 2.0 license.
+
+### GTM Gallery Status
+🟢 [Listed](https://tagmanager.google.com/gallery/#/owners/stape-io/templates/event-enricher-tag)

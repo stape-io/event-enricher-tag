@@ -1,6 +1,6 @@
-# Event Enricher Tag for Google Tag Manager Server Side
+# Event Generator Tag for Google Tag Manager Server Side
 
-The **Event Enricher Tag** is a custom tag template for the Google Tag Manager (GTM) Server container. It allows you to **modify and re-run events** within the same container execution, enabling enhanced data transformation, cleaner logic, and more flexibility when building advanced server-side setups.
+The **Event Generator Tag** (formerly known as the **Event Enricher Tag**) is a custom tag template for the Google Tag Manager (GTM) Server container. It allows you to **modify and re-run events** within the same container execution, enabling enhanced data transformation, cleaner logic, and more flexibility when building advanced server-side setups.
 
 This tag is useful when you want to:
 - Enrich Event Data before it reaches other tags.
@@ -11,11 +11,12 @@ This tag is useful when you want to:
 
 ## Getting Started
 
-1. Add the **Event Enricher Tag by Stape** to your GTM server container.
+1. Add the **Event Generator Tag by Stape** to your GTM server container.
 2. Configure the **New Event Name** – this is how the enriched event will be identified.
-3. Choose whether to **copy the existing Event Data** from the original event.
-4. Define **additional parameters** that should be added or overwritten in the new event.
-5. Set up triggers that use the enriched event for further tag execution.
+   - Optionally, enable **Emit Multiple Events** to also trigger additional container executions using different event names. Add the extra names in the **Additional Event Names** table.
+1. Choose whether to **copy the existing Event Data** from the original event.
+2. Define **additional parameters** that should be added or overwritten in the new event.
+3. Set up triggers that use the enriched event for further tag execution.
 
 ## Required Field
 
@@ -40,7 +41,7 @@ This tag is useful when you want to:
 
 When using **GA4 Advanced Consent** mode, additional trigger configuration is required.
 
-GA4 includes a special parameter called `x-ga-gcu` in events that are redispatched after the user's consent status changes from **denied** to **granted**. When server-side GTM receives these redispatched events, it only fires **Google-related tags** (GA4, Google Ads, Floodlight, and Conversion Linker) — all other tags, including the Event Enricher, are suppressed. This means the enrichment logic won't run, and downstream tags that depend on the enriched event won't receive the modified data.
+GA4 includes a special parameter called `x-ga-gcu` in events that are redispatched after the user's consent status changes from **denied** to **granted**. When server-side GTM receives these redispatched events, it only fires **Google-related tags** (GA4, Google Ads, Floodlight, and Conversion Linker) — all other tags, including the Event Generator tag, are suppressed. This means the enrichment logic won't run, and downstream tags that depend on the enriched event won't receive the modified data.
 
 To ensure correct behavior, configure triggers so that downstream tags can still fire for these consent-update events. See [Simo Ahava's article on automatic hits to sGTM after consent is granted](https://www.simoahava.com/gtmtips/automatic-page-view-hits-to-sgtm-after-consent-granted/) for more background.
 
@@ -55,7 +56,7 @@ To ensure correct behavior, configure triggers so that downstream tags can still
   - **If using the _different Event Name_ option:**
 
     2. Create a new trigger with the same conditions as the one you have just [created above](#required-field), **except**:
-         - The event name must be the **original** event name (not the enriched one), since the Event Enricher tag won't fire for these events.
+         - The event name must be the **original** event name (not the enriched one), since the Event Generator tag won't fire for these events.
          - Add an extra condition: *`x-ga-gcu` does not equal `undefined`*.
     3. Add this new trigger as a firing trigger **only** to the Google-related tags (GA4, Google Ads, Floodlight, Conversion Linker).
 
@@ -67,17 +68,15 @@ This ensures that events collected before consent are correctly processed when r
 
 ## Optional Settings
 
+- **Emit Multiple Events** – If enabled, the tag will run the sGTM container multiple times in parallel — once for the **New Event Name** and once for each name in the **Additional Event Names** table. All executions share the same Event Data (with each receiving its own `event_name`). The tag calls `gtmOnSuccess()` only after all executions complete. This feature was inspired by the work of [Digital Masters](https://digital-masters.de/).
 - **Copy Event Data** – If enabled, the tag will copy all parameters from the original Event Data and merge them with any additional parameters specified.
 - **Convert Dot Notation Flat Parameter Into JSON** – If enabled, the tag will convert dot notation flat parameters into JSON. For example, if you define `user.email = 'test@example.com'` and enable this option, the tag will convert it to `{ user: { email: 'test@example.com' } }`.
 - **Additional Event Data Parameters** – Add or overwrite specific parameters in the new event. For example, you can define `{ currency: 'USD', source: 'enricher' }` to enhance or replace data.
 
 ## Useful Resources
-- [Step-by-step guide on how to configure Event Enricher tag](https://stape.io/helpdesk/documentation/event-enricher-tag)
+- [Step-by-step guide on how to configure Event Generator tag](https://stape.io/helpdesk/documentation/event-enricher-tag)
 
 
 ## Open Source
 
-The **Event Enricher Tag for GTM Server Side** is developed and maintained by the [Stape Team](https://stape.io/) under the Apache 2.0 license.
-
-### GTM Gallery Status
-🟢 [Listed](https://tagmanager.google.com/gallery/#/owners/stape-io/templates/event-enricher-tag)
+The **Event Generator Tag for GTM Server Side** is developed and maintained by the [Stape Team](https://stape.io/) under the Apache 2.0 license.

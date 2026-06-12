@@ -1,6 +1,8 @@
 homepage: 'https://stape.io/'
 documentation: 'https://github.com/stape-io/event-enricher-tag'
 versions:
+  - sha: 737004e1fd1e06097c4124ef3aee95b2759c0ca9
+    changeNotes: Rename tag. Add support for multiple container executions with different event names.
   - sha: e4b54b3a4407f0417f0ea6d46394536e493675cf
     changeNotes: Added notes for additional configuration when using GA4 Advanced Consent Mode.
   - sha: a9e84a0b199c0c2f1615c59647499ea4525acc5a
